@@ -8,6 +8,7 @@ defmodule CcbApiWeb.Router do
   scope "/api", CcbApiWeb do
     pipe_through :api
 
+    resources "/tenants", TenantController, only: [:index, :create, :delete, :show]
     resources "/customers", CustomerController, except: [:new, :edit]
     resources "/products", ProductController, except: [:new, :edit]
     resources "/items", ItemController, except: [:new, :edit]
