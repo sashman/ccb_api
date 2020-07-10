@@ -105,15 +105,15 @@ defmodule CcbApi.Inbound do
   alias CcbApi.Inbound.DeliveryLine
 
   @doc """
-  Returns the list of deliverie_lines.
+  Returns the list of delivery_lines.
 
   ## Examples
 
-      iex> list_deliverie_lines()
+      iex> list_delivery_lines()
       [%DeliveryLine{}, ...]
 
   """
-  def list_deliverie_lines do
+  def list_delivery_lines do
     Repo.all(DeliveryLine)
   end
 

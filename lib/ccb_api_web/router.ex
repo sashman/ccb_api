@@ -15,7 +15,7 @@ defmodule CcbApiWeb.Router do
     resources "/orders", OrderController, except: [:new, :edit]
     resources "/order_lines", OrderLineController, except: [:new, :edit]
     resources "/deliveries", DeliveryController, except: [:new, :edit]
-    resources "/deliverie_lines", DeliveryLineController, except: [:new, :edit]
+    resources "/delivery_lines", DeliveryLineController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development

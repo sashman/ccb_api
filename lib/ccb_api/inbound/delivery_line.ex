@@ -4,7 +4,7 @@ defmodule CcbApi.Inbound.DeliveryLine do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "deliverie_lines" do
+  schema "delivery_lines" do
     field :quantity, :integer
     field :product_id, :binary_id
 

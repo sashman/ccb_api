@@ -22,7 +22,7 @@ defmodule CcbApiWeb.DeliveryLineControllerTest do
   end
 
   describe "index" do
-    test "lists all deliverie_lines", %{conn: conn} do
+    test "lists all delivery_lines", %{conn: conn} do
       conn = get(conn, Routes.delivery_line_path(conn, :index))
       assert json_response(conn, 200)["data"] == []
     end
@@ -50,8 +50,15 @@ defmodule CcbApiWeb.DeliveryLineControllerTest do
   describe "update delivery_line" do
     setup [:create_delivery_line]
 
-    test "renders delivery_line when data is valid", %{conn: conn, delivery_line: %DeliveryLine{id: id} = delivery_line} do
-      conn = put(conn, Routes.delivery_line_path(conn, :update, delivery_line), delivery_line: @update_attrs)
+    test "renders delivery_line when data is valid", %{
+      conn: conn,
+      delivery_line: %DeliveryLine{id: id} = delivery_line
+    } do
+      conn =
+        put(conn, Routes.delivery_line_path(conn, :update, delivery_line),
+          delivery_line: @update_attrs
+        )
+
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
       conn = get(conn, Routes.delivery_line_path(conn, :show, id))
@@ -63,7 +70,11 @@ defmodule CcbApiWeb.DeliveryLineControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, delivery_line: delivery_line} do
-      conn = put(conn, Routes.delivery_line_path(conn, :update, delivery_line), delivery_line: @invalid_attrs)
+      conn =
+        put(conn, Routes.delivery_line_path(conn, :update, delivery_line),
+          delivery_line: @invalid_attrs
+        )
+
       assert json_response(conn, 422)["errors"] != %{}
     end
   end

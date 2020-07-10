@@ -119,7 +119,7 @@ defmodule CcbApi.InboundTest do
     end
   end
 
-  describe "deliverie_lines" do
+  describe "delivery_lines" do
     alias CcbApi.Inbound.DeliveryLine
 
     @valid_attrs %{quantity: 42}
@@ -135,9 +135,9 @@ defmodule CcbApi.InboundTest do
       delivery_line
     end
 
-    test "list_deliverie_lines/0 returns all deliverie_lines" do
+    test "list_delivery_lines/0 returns all delivery_lines" do
       delivery_line = delivery_line_fixture()
-      assert Inbound.list_deliverie_lines() == [delivery_line]
+      assert Inbound.list_delivery_lines() == [delivery_line]
     end
 
     test "get_delivery_line!/1 returns the delivery_line with given id" do
@@ -156,13 +156,19 @@ defmodule CcbApi.InboundTest do
 
     test "update_delivery_line/2 with valid data updates the delivery_line" do
       delivery_line = delivery_line_fixture()
-      assert {:ok, %DeliveryLine{} = delivery_line} = Inbound.update_delivery_line(delivery_line, @update_attrs)
+
+      assert {:ok, %DeliveryLine{} = delivery_line} =
+               Inbound.update_delivery_line(delivery_line, @update_attrs)
+
       assert delivery_line.quantity == 43
     end
 
     test "update_delivery_line/2 with invalid data returns error changeset" do
       delivery_line = delivery_line_fixture()
-      assert {:error, %Ecto.Changeset{}} = Inbound.update_delivery_line(delivery_line, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Inbound.update_delivery_line(delivery_line, @invalid_attrs)
+
       assert delivery_line == Inbound.get_delivery_line!(delivery_line.id)
     end
 
