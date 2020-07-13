@@ -4,12 +4,8 @@ defmodule CcbApiWeb.TenantControllerTest do
   alias CcbApi.Tenants
   alias CcbApi.Tenants.Tenant
 
-  @create_attrs %{
-
-  }
-  @update_attrs %{
-
-  }
+  @create_attrs %{}
+  @update_attrs %{}
   @invalid_attrs %{}
 
   def fixture(:tenant) do

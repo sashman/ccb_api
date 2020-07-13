@@ -4,12 +4,8 @@ defmodule CcbApiWeb.DeliveryControllerTest do
   alias CcbApi.Inbound
   alias CcbApi.Inbound.Delivery
 
-  @create_attrs %{
-
-  }
-  @update_attrs %{
-
-  }
+  @create_attrs %{}
+  @update_attrs %{}
   @invalid_attrs %{}
 
   def fixture(:delivery) do
@@ -49,7 +45,10 @@ defmodule CcbApiWeb.DeliveryControllerTest do
   describe "update delivery" do
     setup [:create_delivery]
 
-    test "renders delivery when data is valid", %{conn: conn, delivery: %Delivery{id: id} = delivery} do
+    test "renders delivery when data is valid", %{
+      conn: conn,
+      delivery: %Delivery{id: id} = delivery
+    } do
       conn = put(conn, Routes.delivery_path(conn, :update, delivery), delivery: @update_attrs)
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 

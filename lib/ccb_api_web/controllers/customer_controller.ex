@@ -7,6 +7,7 @@ defmodule CcbApiWeb.CustomerController do
   action_fallback CcbApiWeb.FallbackController
 
   def index(conn, _params) do
+    IO.inspect(conn.assigns)
     customers = Customers.list_customers(conn.assigns)
     render(conn, "index.json", customers: customers)
   end

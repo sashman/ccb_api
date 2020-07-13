@@ -28,7 +28,8 @@ defmodule CcbApiWeb.SuperUserController do
   def update(conn, %{"id" => id, "super_user" => super_user_params}) do
     super_user = Accounts.get_super_user!(id)
 
-    with {:ok, %SuperUser{} = super_user} <- Accounts.update_super_user(super_user, super_user_params) do
+    with {:ok, %SuperUser{} = super_user} <-
+           Accounts.update_super_user(super_user, super_user_params) do
       render(conn, "show.json", super_user: super_user)
     end
   end

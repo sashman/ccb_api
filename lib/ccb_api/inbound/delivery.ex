@@ -5,7 +5,6 @@ defmodule CcbApi.Inbound.Delivery do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "deliveries" do
-
     timestamps()
   end
 

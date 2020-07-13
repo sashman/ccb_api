@@ -6,7 +6,7 @@ config :ccb_api, CcbApi.Repo,
   password: "postgres",
   database: "ccb_api_dev",
   hostname: "localhost",
-  port: 5433,
+  port: 5432,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
@@ -46,6 +46,14 @@ config :ccb_api, CcbApiWeb.Endpoint,
 # If desired, both `http:` and `https:` keys can be
 # configured to run both http and https servers on
 # different ports.
+
+# Setup Guardian with Auth0
+config :ccb_api, Auth.Guardian,
+  allowed_algos: ["HS256"],
+  verify_module: Guardian.JWT,
+  issuer: "https://ccbapp.eu.auth0.com/",
+  verify_issuer: false,
+  secret_key: "f6Hxyp2EKo1Q41VaEqp5Cp1LkkcXxwzDtpRQFvFDd0mytjhU3w7hfxDtSe4Y7CNb"
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

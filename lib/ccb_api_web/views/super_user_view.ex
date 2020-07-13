@@ -11,7 +11,6 @@ defmodule CcbApiWeb.SuperUserView do
   end
 
   def render("super_user.json", %{super_user: super_user}) do
-    %{id: super_user.id,
-      email: super_user.email}
+    %{id: super_user.id, email: super_user.email}
   end
 end

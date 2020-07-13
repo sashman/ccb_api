@@ -50,8 +50,13 @@ defmodule CcbApiWeb.SuperUserControllerTest do
   describe "update super_user" do
     setup [:create_super_user]
 
-    test "renders super_user when data is valid", %{conn: conn, super_user: %SuperUser{id: id} = super_user} do
-      conn = put(conn, Routes.super_user_path(conn, :update, super_user), super_user: @update_attrs)
+    test "renders super_user when data is valid", %{
+      conn: conn,
+      super_user: %SuperUser{id: id} = super_user
+    } do
+      conn =
+        put(conn, Routes.super_user_path(conn, :update, super_user), super_user: @update_attrs)
+
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
       conn = get(conn, Routes.super_user_path(conn, :show, id))
@@ -63,7 +68,9 @@ defmodule CcbApiWeb.SuperUserControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, super_user: super_user} do
-      conn = put(conn, Routes.super_user_path(conn, :update, super_user), super_user: @invalid_attrs)
+      conn =
+        put(conn, Routes.super_user_path(conn, :update, super_user), super_user: @invalid_attrs)
+
       assert json_response(conn, 422)["errors"] != %{}
     end
   end

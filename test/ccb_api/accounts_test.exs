@@ -40,7 +40,10 @@ defmodule CcbApi.AccountsTest do
 
     test "update_super_user/2 with valid data updates the super_user" do
       super_user = super_user_fixture()
-      assert {:ok, %SuperUser{} = super_user} = Accounts.update_super_user(super_user, @update_attrs)
+
+      assert {:ok, %SuperUser{} = super_user} =
+               Accounts.update_super_user(super_user, @update_attrs)
+
       assert super_user.email == "some updated email"
     end
 

@@ -3,6 +3,7 @@ defmodule CcbApiWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Auth.Guardian.Pipeline
   end
 
   pipeline :tenant do

@@ -8,6 +8,5 @@ defmodule CcbApi.Repo.Migrations.CreateSuperUsers do
 
       timestamps()
     end
-
   end
 end
