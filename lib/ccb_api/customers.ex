@@ -17,8 +17,8 @@ defmodule CcbApi.Customers do
       [%Customer{}, ...]
 
   """
-  def list_customers do
-    Repo.all(Customer)
+  def list_customers(assigns) do
+    Repo.all(Customer, prefix: Triplex.to_prefix(assigns))
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule CcbApi.Customers do
       ** (Ecto.NoResultsError)
 
   """
-  def get_customer!(id), do: Repo.get!(Customer, id)
+  def get_customer!(id, assigns), do: Repo.get!(Customer, id, prefix: Triplex.to_prefix(assigns))
 
   @doc """
   Creates a customer.
@@ -49,10 +49,10 @@ defmodule CcbApi.Customers do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_customer(attrs \\ %{}) do
+  def create_customer(attrs \\ %{}, assigns) do
     %Customer{}
     |> Customer.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: Triplex.to_prefix(assigns))
   end
 
   @doc """
@@ -67,10 +67,10 @@ defmodule CcbApi.Customers do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_customer(%Customer{} = customer, attrs) do
+  def update_customer(%Customer{} = customer, attrs, assigns) do
     customer
     |> Customer.changeset(attrs)
-    |> Repo.update()
+    |> Repo.update(prefix: Triplex.to_prefix(assigns))
   end
 
   @doc """
@@ -85,8 +85,8 @@ defmodule CcbApi.Customers do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_customer(%Customer{} = customer) do
-    Repo.delete(customer)
+  def delete_customer(%Customer{} = customer, assigns) do
+    Repo.delete(customer, prefix: Triplex.to_prefix(assigns))
   end
 
   @doc """

@@ -5,18 +5,31 @@ defmodule CcbApiWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :tenant do
+    plug Triplex.SubdomainPlug,
+      endpoint: CcbApiWeb.Endpoint
+
+    plug Triplex.EnsurePlug,
+      failure_callback: &CcbApiWeb.Tenant.Helper.ensure_loaded_failure/2
+  end
+
   scope "/api", CcbApiWeb do
     pipe_through :api
 
     resources "/tenants", TenantController, only: [:index, :create, :delete, :show]
-    resources "/customers", CustomerController, except: [:new, :edit]
-    resources "/products", ProductController, except: [:new, :edit]
-    resources "/items", ItemController, except: [:new, :edit]
-    resources "/item_options", ItemOptionController, except: [:new, :edit]
-    resources "/orders", OrderController, except: [:new, :edit]
-    resources "/order_lines", OrderLineController, except: [:new, :edit]
-    resources "/deliveries", DeliveryController, except: [:new, :edit]
-    resources "/delivery_lines", DeliveryLineController, except: [:new, :edit]
+
+    scope "/" do
+      pipe_through :tenant
+
+      resources "/customers", CustomerController, except: [:new, :edit]
+      resources "/products", ProductController, except: [:new, :edit]
+      resources "/items", ItemController, except: [:new, :edit]
+      resources "/item_options", ItemOptionController, except: [:new, :edit]
+      resources "/orders", OrderController, except: [:new, :edit]
+      resources "/order_lines", OrderLineController, except: [:new, :edit]
+      resources "/deliveries", DeliveryController, except: [:new, :edit]
+      resources "/delivery_lines", DeliveryLineController, except: [:new, :edit]
+    end
   end
 
   # Enables LiveDashboard only for development

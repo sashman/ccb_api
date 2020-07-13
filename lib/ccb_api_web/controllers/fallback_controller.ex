@@ -21,4 +21,10 @@ defmodule CcbApiWeb.FallbackController do
     |> put_view(CcbApiWeb.ErrorView)
     |> render(:"404")
   end
+
+  # This clause is an example of how to handle resources that are not authorized.
+  def call(conn, {:error, :unauthorized}) do
+    conn
+    |> send_resp(:unauthorized, "Unauthorized")
+  end
 end
