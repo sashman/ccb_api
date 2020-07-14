@@ -5,6 +5,7 @@ defmodule CcbApi.Items do
 
   import Ecto.Query, warn: false
   alias CcbApi.Repo
+  alias CcbApi.Tenant.Helper
 
   alias CcbApi.Items.Product
 
@@ -18,7 +19,7 @@ defmodule CcbApi.Items do
 
   """
   def list_products do
-    Repo.all(Product)
+    Repo.all(Product, prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -35,7 +36,7 @@ defmodule CcbApi.Items do
       ** (Ecto.NoResultsError)
 
   """
-  def get_product!(id), do: Repo.get!(Product, id)
+  def get_product!(id), do: Repo.get!(Product, id, prefix: Triplex.to_prefix(Helper.tenant()))
 
   @doc """
   Creates a product.
@@ -52,7 +53,7 @@ defmodule CcbApi.Items do
   def create_product(attrs \\ %{}) do
     %Product{}
     |> Product.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -70,7 +71,7 @@ defmodule CcbApi.Items do
   def update_product(%Product{} = product, attrs) do
     product
     |> Product.changeset(attrs)
-    |> Repo.update()
+    |> Repo.update(prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -86,7 +87,7 @@ defmodule CcbApi.Items do
 
   """
   def delete_product(%Product{} = product) do
-    Repo.delete(product)
+    Repo.delete(product, prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -114,7 +115,7 @@ defmodule CcbApi.Items do
 
   """
   def list_items do
-    Repo.all(Item)
+    Repo.all(Item, prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -131,7 +132,7 @@ defmodule CcbApi.Items do
       ** (Ecto.NoResultsError)
 
   """
-  def get_item!(id), do: Repo.get!(Item, id)
+  def get_item!(id), do: Repo.get!(Item, id, prefix: Triplex.to_prefix(Helper.tenant()))
 
   @doc """
   Creates a item.
@@ -148,7 +149,7 @@ defmodule CcbApi.Items do
   def create_item(attrs \\ %{}) do
     %Item{}
     |> Item.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -166,7 +167,7 @@ defmodule CcbApi.Items do
   def update_item(%Item{} = item, attrs) do
     item
     |> Item.changeset(attrs)
-    |> Repo.update()
+    |> Repo.update(prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -182,7 +183,7 @@ defmodule CcbApi.Items do
 
   """
   def delete_item(%Item{} = item) do
-    Repo.delete(item)
+    Repo.delete(item, prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -210,7 +211,7 @@ defmodule CcbApi.Items do
 
   """
   def list_item_options do
-    Repo.all(ItemOption)
+    Repo.all(ItemOption, prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -227,7 +228,8 @@ defmodule CcbApi.Items do
       ** (Ecto.NoResultsError)
 
   """
-  def get_item_option!(id), do: Repo.get!(ItemOption, id)
+  def get_item_option!(id),
+    do: Repo.get!(ItemOption, id, prefix: Triplex.to_prefix(Helper.tenant()))
 
   @doc """
   Creates a item_option.
@@ -244,7 +246,7 @@ defmodule CcbApi.Items do
   def create_item_option(attrs \\ %{}) do
     %ItemOption{}
     |> ItemOption.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -262,7 +264,7 @@ defmodule CcbApi.Items do
   def update_item_option(%ItemOption{} = item_option, attrs) do
     item_option
     |> ItemOption.changeset(attrs)
-    |> Repo.update()
+    |> Repo.update(prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -278,7 +280,7 @@ defmodule CcbApi.Items do
 
   """
   def delete_item_option(%ItemOption{} = item_option) do
-    Repo.delete(item_option)
+    Repo.delete(item_option, prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
