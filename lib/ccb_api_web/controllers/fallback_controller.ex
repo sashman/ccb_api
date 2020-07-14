@@ -22,6 +22,13 @@ defmodule CcbApiWeb.FallbackController do
     |> render(:"404")
   end
 
+  def call(conn, {:error, :tenant_exists}) do
+    conn
+    |> put_status(:conflict)
+    |> put_view(CcbApiWeb.ErrorView)
+    |> render(:"409")
+  end
+
   # This clause is an example of how to handle resources that are not authorized.
   def call(conn, {:error, :unauthorized, :tenant}) do
     conn

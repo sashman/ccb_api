@@ -15,6 +15,9 @@ defmodule CcbApiWeb.TenantController do
       conn
       |> put_status(:created)
       |> json(%{name: tenant_name})
+    else
+      {:error, "ERROR 42P06 (duplicate_schema)" <> _} ->
+        {:error, :tenant_exists}
     end
   end
 

@@ -10,4 +10,10 @@ defmodule CcbApiWeb.Tenant.Helper do
     |> put_status(:unauthorized)
     |> CcbApiWeb.FallbackController.call({:error, :unauthorized, :tenant})
   end
+
+  def store_tenant(conn, _params) do
+    Process.put(:current_tenant, conn.assigns.current_tenant)
+
+    conn
+  end
 end

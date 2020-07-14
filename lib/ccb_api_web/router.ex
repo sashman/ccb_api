@@ -13,7 +13,7 @@ defmodule CcbApiWeb.Router do
     plug Triplex.EnsurePlug,
       failure_callback: &CcbApiWeb.Tenant.Helper.ensure_loaded_failure/2
 
-    plug :store_tenant
+    plug CcbApiWeb.Tenant.Store
   end
 
   scope "/api", CcbApiWeb do
@@ -49,11 +49,5 @@ defmodule CcbApiWeb.Router do
       pipe_through [:fetch_session, :protect_from_forgery]
       live_dashboard "/dashboard", metrics: CcbApiWeb.Telemetry
     end
-  end
-
-  defp store_tenant(conn, _params) do
-    Process.put(:current_tenant, conn.assigns.current_tenant)
-
-    conn
   end
 end
