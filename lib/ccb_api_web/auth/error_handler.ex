@@ -5,6 +5,7 @@ defmodule Auth.ErrorHandler do
 
   @impl Guardian.Plug.ErrorHandler
   def auth_error(conn, {type, reason}, _opts) do
+    IO.inspect(reason)
     body = Jason.encode!(%{message: to_string(type)})
     send_resp(conn, 401, body)
   end

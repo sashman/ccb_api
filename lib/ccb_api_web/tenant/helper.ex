@@ -8,6 +8,6 @@ defmodule CcbApiWeb.Tenant.Helper do
   def ensure_loaded_failure(conn, _) do
     conn
     |> put_status(:unauthorized)
-    |> CcbApiWeb.FallbackController.call({:error, :unauthorized})
+    |> CcbApiWeb.FallbackController.call({:error, :unauthorized, :tenant})
   end
 end

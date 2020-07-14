@@ -17,8 +17,8 @@ defmodule CcbApi.Inbound do
       [%Delivery{}, ...]
 
   """
-  def list_deliveries do
-    Repo.all(Delivery)
+  def list_deliveries(context) do
+    Repo.all(Delivery, prefix: Triplex.to_prefix(context))
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule CcbApi.Inbound do
       ** (Ecto.NoResultsError)
 
   """
-  def get_delivery!(id), do: Repo.get!(Delivery, id)
+  def get_delivery!(id, context), do: Repo.get!(Delivery, id, prefix: Triplex.to_prefix(context))
 
   @doc """
   Creates a delivery.
@@ -49,10 +49,10 @@ defmodule CcbApi.Inbound do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_delivery(attrs \\ %{}) do
+  def create_delivery(attrs \\ %{}, context) do
     %Delivery{}
     |> Delivery.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: Triplex.to_prefix(context))
   end
 
   @doc """
@@ -67,10 +67,10 @@ defmodule CcbApi.Inbound do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_delivery(%Delivery{} = delivery, attrs) do
+  def update_delivery(%Delivery{} = delivery, attrs, context) do
     delivery
     |> Delivery.changeset(attrs)
-    |> Repo.update()
+    |> Repo.update(prefix: Triplex.to_prefix(context))
   end
 
   @doc """
@@ -85,8 +85,8 @@ defmodule CcbApi.Inbound do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_delivery(%Delivery{} = delivery) do
-    Repo.delete(delivery)
+  def delete_delivery(%Delivery{} = delivery, context) do
+    Repo.delete(delivery, prefix: Triplex.to_prefix(context))
   end
 
   @doc """
@@ -98,7 +98,7 @@ defmodule CcbApi.Inbound do
       %Ecto.Changeset{data: %Delivery{}}
 
   """
-  def change_delivery(%Delivery{} = delivery, attrs \\ %{}) do
+  def change_delivery(%Delivery{} = delivery, attrs \\ %{}, context) do
     Delivery.changeset(delivery, attrs)
   end
 
@@ -113,8 +113,8 @@ defmodule CcbApi.Inbound do
       [%DeliveryLine{}, ...]
 
   """
-  def list_delivery_lines do
-    Repo.all(DeliveryLine)
+  def list_delivery_lines(context) do
+    Repo.all(DeliveryLine, prefix: Triplex.to_prefix(context))
   end
 
   @doc """
@@ -131,7 +131,8 @@ defmodule CcbApi.Inbound do
       ** (Ecto.NoResultsError)
 
   """
-  def get_delivery_line!(id), do: Repo.get!(DeliveryLine, id)
+  def get_delivery_line!(id, context),
+    do: Repo.get!(DeliveryLine, id, prefix: Triplex.to_prefix(context))
 
   @doc """
   Creates a delivery_line.
@@ -145,10 +146,10 @@ defmodule CcbApi.Inbound do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_delivery_line(attrs \\ %{}) do
+  def create_delivery_line(attrs \\ %{}, context) do
     %DeliveryLine{}
     |> DeliveryLine.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: Triplex.to_prefix(context))
   end
 
   @doc """
@@ -163,10 +164,10 @@ defmodule CcbApi.Inbound do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_delivery_line(%DeliveryLine{} = delivery_line, attrs) do
+  def update_delivery_line(%DeliveryLine{} = delivery_line, attrs, context) do
     delivery_line
     |> DeliveryLine.changeset(attrs)
-    |> Repo.update()
+    |> Repo.update(prefix: Triplex.to_prefix(context))
   end
 
   @doc """
@@ -181,8 +182,8 @@ defmodule CcbApi.Inbound do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_delivery_line(%DeliveryLine{} = delivery_line) do
-    Repo.delete(delivery_line)
+  def delete_delivery_line(%DeliveryLine{} = delivery_line, context) do
+    Repo.delete(delivery_line, prefix: Triplex.to_prefix(context))
   end
 
   @doc """

@@ -23,8 +23,8 @@ defmodule CcbApiWeb.FallbackController do
   end
 
   # This clause is an example of how to handle resources that are not authorized.
-  def call(conn, {:error, :unauthorized}) do
+  def call(conn, {:error, :unauthorized, :tenant}) do
     conn
-    |> send_resp(:unauthorized, "Unauthorized")
+    |> send_resp(:unauthorized, "Unauthorized tenant")
   end
 end
