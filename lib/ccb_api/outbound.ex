@@ -5,6 +5,7 @@ defmodule CcbApi.Outbound do
 
   import Ecto.Query, warn: false
   alias CcbApi.Repo
+  alias CcbApi.Tenant.Helper
 
   alias CcbApi.Outbound.Order
 
@@ -18,7 +19,7 @@ defmodule CcbApi.Outbound do
 
   """
   def list_orders do
-    Repo.all(Order)
+    Repo.all(Order, prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -35,7 +36,7 @@ defmodule CcbApi.Outbound do
       ** (Ecto.NoResultsError)
 
   """
-  def get_order!(id), do: Repo.get!(Order, id)
+  def get_order!(id), do: Repo.get!(Order, id, prefix: Triplex.to_prefix(Helper.tenant()))
 
   @doc """
   Creates a order.
@@ -52,7 +53,7 @@ defmodule CcbApi.Outbound do
   def create_order(attrs \\ %{}) do
     %Order{}
     |> Order.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -70,7 +71,7 @@ defmodule CcbApi.Outbound do
   def update_order(%Order{} = order, attrs) do
     order
     |> Order.changeset(attrs)
-    |> Repo.update()
+    |> Repo.update(prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -86,7 +87,7 @@ defmodule CcbApi.Outbound do
 
   """
   def delete_order(%Order{} = order) do
-    Repo.delete(order)
+    Repo.delete(order, prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -114,7 +115,7 @@ defmodule CcbApi.Outbound do
 
   """
   def list_order_lines do
-    Repo.all(OrderLine)
+    Repo.all(OrderLine, prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -131,7 +132,8 @@ defmodule CcbApi.Outbound do
       ** (Ecto.NoResultsError)
 
   """
-  def get_order_line!(id), do: Repo.get!(OrderLine, id)
+  def get_order_line!(id),
+    do: Repo.get!(OrderLine, id, prefix: Triplex.to_prefix(Helper.tenant()))
 
   @doc """
   Creates a order_line.
@@ -148,7 +150,7 @@ defmodule CcbApi.Outbound do
   def create_order_line(attrs \\ %{}) do
     %OrderLine{}
     |> OrderLine.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -166,7 +168,7 @@ defmodule CcbApi.Outbound do
   def update_order_line(%OrderLine{} = order_line, attrs) do
     order_line
     |> OrderLine.changeset(attrs)
-    |> Repo.update()
+    |> Repo.update(prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -182,7 +184,7 @@ defmodule CcbApi.Outbound do
 
   """
   def delete_order_line(%OrderLine{} = order_line) do
-    Repo.delete(order_line)
+    Repo.delete(order_line, prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
