@@ -46,7 +46,8 @@ defmodule CcbApi.MixProject do
       {:triplex, "~> 1.3.0"},
       {:guardian, "~> 2.0"},
       # Auth library
-      {:guardian_phoenix, "~> 2.0"}
+      {:guardian_phoenix, "~> 2.0"},
+      {:cors_plug, "~> 1.5"}
     ]
   end
 
