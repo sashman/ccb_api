@@ -48,5 +48,6 @@ defmodule CcbApiWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+  plug CORSPlug, origin: ["http://localhost:3000", "http://127.0.0.1:3000"]
   plug CcbApiWeb.Router
 end

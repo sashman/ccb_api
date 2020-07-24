@@ -49,11 +49,15 @@ config :ccb_api, CcbApiWeb.Endpoint,
 
 # Setup Guardian with Auth0
 config :ccb_api, Auth.Guardian,
-  allowed_algos: ["HS256"],
+  allowed_drift: 30_000,
+  allowed_algos: ["RS256"],
   verify_module: Guardian.JWT,
   issuer: "https://ccbapp.eu.auth0.com/",
   verify_issuer: false,
-  secret_key: "f6Hxyp2EKo1Q41VaEqp5Cp1LkkcXxwzDtpRQFvFDd0mytjhU3w7hfxDtSe4Y7CNb"
+  secret_key_pem_path: "ccbapp.pem",
+  secret_key: {Auth.Guardian.SecretKey, :fetch, []}
+
+# secret_key: "f6Hxyp2EKo1Q41VaEqp5Cp1LkkcXxwzDtpRQFvFDd0mytjhU3w7hfxDtSe4Y7CNb",
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

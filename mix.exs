@@ -47,7 +47,7 @@ defmodule CcbApi.MixProject do
       {:guardian, "~> 2.0"},
       # Auth library
       {:guardian_phoenix, "~> 2.0"},
-      {:cors_plug, "~> 1.5"}
+      {:cors_plug, "~> 2.0"}
     ]
   end
 
