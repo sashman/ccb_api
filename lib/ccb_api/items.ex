@@ -115,7 +115,7 @@ defmodule CcbApi.Items do
 
   """
   def list_items do
-    Repo.all(Item, prefix: Triplex.to_prefix(Helper.tenant()))
+    Repo.all(Item |> preload(:product), prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -132,7 +132,8 @@ defmodule CcbApi.Items do
       ** (Ecto.NoResultsError)
 
   """
-  def get_item!(id), do: Repo.get!(Item, id, prefix: Triplex.to_prefix(Helper.tenant()))
+  def get_item!(id),
+    do: Repo.get!(Item |> preload(:product), id, prefix: Triplex.to_prefix(Helper.tenant()))
 
   @doc """
   Creates a item.

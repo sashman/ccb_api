@@ -10,7 +10,12 @@ defmodule CcbApiWeb.ItemView do
     %{data: render_one(item, ItemView, "item.json")}
   end
 
-  def render("item.json", %{item: item}) do
-    %{id: item.id, sku: item.sku, quantity: item.quantity}
+  def render("item.json", %{item: item = %{product: %{title: title, description: description}}}) do
+    %{
+      id: item.id,
+      sku: item.sku,
+      quantity: item.quantity,
+      product: %{title: title, description: description}
+    }
   end
 end
