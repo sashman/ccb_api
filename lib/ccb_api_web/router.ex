@@ -33,6 +33,7 @@ defmodule CcbApiWeb.Router do
       resources "/order_lines", OrderLineController, except: [:new, :edit]
       resources "/deliveries", DeliveryController, except: [:new, :edit]
       resources "/delivery_lines", DeliveryLineController, except: [:new, :edit]
+      resources "/storefront_integrations", StorefrontIntegrationController, except: [:new, :edit]
     end
   end
 

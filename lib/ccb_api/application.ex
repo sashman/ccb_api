@@ -14,7 +14,8 @@ defmodule CcbApi.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: CcbApi.PubSub},
       # Start the Endpoint (http/https)
-      CcbApiWeb.Endpoint
+      CcbApiWeb.Endpoint,
+      CcbApi.Vault
       # Start a worker by calling: CcbApi.Worker.start_link(arg)
       # {CcbApi.Worker, arg}
     ]

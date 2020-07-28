@@ -50,4 +50,17 @@ defmodule CcbApiWeb.Endpoint do
   plug Plug.Session, @session_options
   plug CORSPlug, origin: ["http://localhost:3000", "http://127.0.0.1:3000"]
   plug CcbApiWeb.Router
+
+  @doc """
+  Dynamically loads configuration from the system environment
+  on startup.
+
+  It receives the endpoint configuration from the config files
+  and must return the updated configuration.
+  """
+  def init(_type, config) do
+    {:ok, config} = Confex.Resolver.resolve(config)
+
+    {:ok, config}
+  end
 end

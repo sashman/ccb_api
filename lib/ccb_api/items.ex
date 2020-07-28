@@ -56,6 +56,22 @@ defmodule CcbApi.Items do
     |> Repo.insert(prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
+  def create_products(attrs) when is_list(attrs) do
+    now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+
+    attrs =
+      attrs
+      |> Stream.map(&Map.from_struct(&1))
+      |> Stream.map(&Map.drop(&1, [:__meta__, :id]))
+      |> Enum.map(&%{&1 | inserted_at: now, updated_at: now})
+
+    Repo.insert_all(
+      Product,
+      attrs,
+      prefix: Triplex.to_prefix(Helper.tenant())
+    )
+  end
+
   @doc """
   Updates a product.
 
@@ -88,6 +104,10 @@ defmodule CcbApi.Items do
   """
   def delete_product(%Product{} = product) do
     Repo.delete(product, prefix: Triplex.to_prefix(Helper.tenant()))
+  end
+
+  def delete_products() do
+    Repo.delete_all(Product, prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
@@ -185,6 +205,10 @@ defmodule CcbApi.Items do
   """
   def delete_item(%Item{} = item) do
     Repo.delete(item, prefix: Triplex.to_prefix(Helper.tenant()))
+  end
+
+  def delete_items() do
+    Repo.delete_all(Item, prefix: Triplex.to_prefix(Helper.tenant()))
   end
 
   @doc """
