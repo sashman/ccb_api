@@ -50,7 +50,8 @@ defmodule CcbApi.MixProject do
       {:cors_plug, "~> 2.0"},
       {:confex, "~> 3.4.0"},
       {:shopify, "~> 0.4"},
-      {:cloak_ecto, "~> 1.0.1"}
+      {:cloak_ecto, "~> 1.0.1"},
+      {:memoize, "~> 1.3"}
     ]
   end
 

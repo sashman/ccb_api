@@ -1,12 +1,13 @@
 defmodule CcbApi.Connections.Storefront do
   alias CcbApi.Items.Product
+  use Memoize
 
   @callback name() :: String.t()
   @callback integration_schema() :: module()
   @callback scrape_storefront_products() :: {:ok, %{}}
   @callback to_product(%{}) :: %Product{}
 
-  def all do
+  defmemo all do
     for {module, _} <- :code.all_loaded(),
         __MODULE__ in (module.module_info(:attributes)[:behaviour] || []) do
       module
@@ -25,6 +26,15 @@ defmodule CcbApi.Connections.Storefront do
       |> Enum.find(fn {_, name} -> name == storefront_name end)
 
     storefront.integration_schema()
+  end
+
+  def schema_to_name(schema) do
+    {storefront, _} =
+      all()
+      |> Enum.map(fn s -> {s, s.integration_schema} end)
+      |> Enum.find(fn {_, integration_schema} -> integration_schema == schema end)
+
+    storefront.name()
   end
 
   def all_products do
