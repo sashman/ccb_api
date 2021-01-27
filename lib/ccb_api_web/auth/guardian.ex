@@ -16,7 +16,10 @@ defmodule Auth.Guardian do
   def resource_from_claims(%{"sub" => "google-oauth2|" <> id} = claims),
     do: claims_to_identity(id, claims)
 
-  defp claims_to_identity(id, claims) do
+  def resource_from_claims(%{"sub" => id} = claims),
+    do: claims_to_identity(id, claims)
+
+  defp claims_to_identity(id, %{"given_name" => _} = claims) do
     {:ok,
      %Identity{
        id: id,
@@ -27,6 +30,13 @@ defmodule Auth.Guardian do
        picture: claims["picture"],
        locale: claims["locale"],
        updated_at: claims["updated_at"]
+     }}
+  end
+
+  defp claims_to_identity(id, _claims) do
+    {:ok,
+     %Identity{
+       id: id
      }}
   end
 

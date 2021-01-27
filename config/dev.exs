@@ -6,7 +6,7 @@ config :ccb_api, CcbApi.Repo,
   password: "postgres",
   database: "ccb_api_dev",
   hostname: "localhost",
-  port: 5433,
+  port: 5432,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
@@ -47,15 +47,38 @@ config :ccb_api, CcbApiWeb.Endpoint,
 # configured to run both http and https servers on
 # different ports.
 
-# Setup Guardian with Auth0
+# # Setup Guardian with Auth0
+# config :ccb_api, Auth.Guardian,
+#   allowed_drift: 30_000,
+#   allowed_algos: ["RS256"],
+#   verify_module: Guardian.JWT,
+#   issuer: "https://ccbapp.eu.auth0.com/",
+#   verify_issuer: false,
+#   secret_key_pem_path: "ccbapp.pem",
+#   secret_key: {Auth.Guardian.SecretKey, :fetch, []}
+
 config :ccb_api, Auth.Guardian,
-  allowed_drift: 30_000,
   allowed_algos: ["RS256"],
-  verify_module: Guardian.JWT,
-  issuer: "https://ccbapp.eu.auth0.com/",
-  verify_issuer: false,
-  secret_key_pem_path: "ccbapp.pem",
-  secret_key: {Auth.Guardian.SecretKey, :fetch, []}
+  secret_key: {Auth.Guardian.SecretKey, :fetch_from_binary, []},
+  secret_binary: """
+    {
+        "alg": "RS256",
+        "e": "AQAB",
+        "n": "vPLUo5EEMafO4bWYkK490-IgO45dbm1r9En7OIb_f1r7drzSepEq2RW7npjPUVOZWQRzZ9u5klWy-eDUrjwSoJf8GHUWzWBVoTkWZgHFgy72ESobjJbTfJLLTIK8MIvRSWnDkcQl2DrpLfrLm1aQdWeppqGKgu3ojcn3BfvuOnd-qb2c_bNC7-ec1uxr5Q5xzb5JKEyWCK476Lp8iK8WptJShnHBa7lAqlSOj2kRzQ77B4i-ehQvBNKi6jfNKEgqnW34OXSiqJKmfs2PuH-qLdDfLccsRFqwau38yzpHIa6LpczuScHXAC6fg_tiWhvy5FICwM0TKlb8GKkFr03Ngw",
+        "kid": "MpNwYoEgkamunPRmCLBZ1P2sMOxo6pJAqDpUbiySlLI",
+        "kty": "RSA",
+        "use": "sig"
+      }
+  """
+
+# verify_module: Guardian.JWT,
+# issuer: "https://dev-27751295.okta.com/oauth2/default",
+# ttl: {30, :days},
+# verify_issuer: true,
+# secret_key: fn ->
+#   System.get_env("GUARDIAN_KEY_PASSPHRASE")
+#   |> JOSE.JWK.from_file(System.get_env("GUARDIAN_KEY_FILE"))
+# end,
 
 # secret_key: "f6Hxyp2EKo1Q41VaEqp5Cp1LkkcXxwzDtpRQFvFDd0mytjhU3w7hfxDtSe4Y7CNb",
 
